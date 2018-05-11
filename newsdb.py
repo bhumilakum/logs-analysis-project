@@ -1,4 +1,7 @@
+#!/usr/bin/env python3
+
 import psycopg2
+
 
 def connect(dbname="news"):
     """ this function connects to the PostgreSQL database news.
@@ -7,14 +10,13 @@ def connect(dbname="news"):
         Retuns:
             it will return database connection.
     """
-    try:
-        db = psycopg2.connect("dbname = {}".format(dbname))
-        c = db.cursor()
-        return db, c
-    except:
-        print("Can't connect to the database news.")
+    db = psycopg2.connect("dbname = {}".format(dbname))
+    c = db.cursor()
+    return db, c
+
 
 def articles_view():
+
     """ this function creates a view for the most popular
         articles of all time.
     """
@@ -31,8 +33,10 @@ def articles_view():
     db.commit()
     db.close()
 
+
 def authors_view():
-    """ this function creates a view for the most popular 
+
+    """ this function creates a view for the most popular
         article authors of all time.
     """
 
@@ -49,7 +53,9 @@ def authors_view():
     db.commit()
     db.close()
 
+
 def log_view():
+
     """ this function creates a view for the error log.
     """
 
@@ -67,6 +73,7 @@ def log_view():
     db.commit()
     db.close()
 
+
 def print_articles():
     """ this function prints the data for the most popular
         articles using the articles_view.
@@ -83,7 +90,8 @@ def print_articles():
         print "\"" + data[0] + "\" -- " + str(data[1]) + " views"
 
     print "-----------------------------------------------------------"
-    
+
+
 def print_authors():
     """ this function prints the data for the most popular
         article authors using the authors_view.
@@ -98,8 +106,9 @@ def print_authors():
     print "\n>> The most popular article authors of all time...\n"
     for data in result:
         print data[0] + " -- " + str(data[1]) + " views"
-    
+
     print "-----------------------------------------------------------"
+
 
 def print_log():
     """ this function prints the data for the error log
@@ -117,6 +126,7 @@ def print_log():
         print str(data[0]) + " -- " + str(data[1]) + "% errors"
 
     print "-----------------------------------------------------------\n\n"
+
 
 if __name__ == '__main__':
 
